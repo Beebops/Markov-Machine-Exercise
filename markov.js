@@ -42,7 +42,7 @@ class MarkovMachine {
     let keys = Array.from(this.chains.keys())
     let key = MarkovMachine.getWord(keys)
     let output = []
-
+    // push random words into output array
     while (output.length < numWords && key !== null) {
       output.push(key)
       key = MarkovMachine.getWord(this.chains.get(key))
@@ -51,7 +51,4 @@ class MarkovMachine {
   }
 }
 
-const markovMachine = new MarkovMachine('the cat in the hat')
-const newChains = markovMachine.chains
-console.log(newChains)
-console.log(markovMachine.makeText())
+module.exports = { MarkovMachine }
