@@ -29,4 +29,36 @@ describe('Markov Machine', () => {
       expect(randomWord).toBeNull()
     })
   })
+
+  describe('makeText', () => {
+    let markovMachine
+
+    beforeEach(() => {
+      const text = 'The only thing we have to fear is fear itself'
+      markovMachine = new MarkovMachine(text)
+    })
+
+    it('should return a string of the specified number of words', () => {
+      const numOfWords = 5
+      const generatedText = markovMachine.makeText(numOfWords)
+      const words = generatedText.split(' ')
+      expect(words.length).toEqual(numOfWords)
+    })
+
+    it('should return an empty string when numWords is 0', () => {
+      const numOfWords = 0
+      const generatedText = markovMachine.makeText(numOfWords)
+      expect(generatedText).toEqual('')
+    })
+
+    it('should return a string that includes at least one word from the input text', () => {
+      const generatedText = markovMachine.makeText()
+
+      const words = markovMachine.words
+      const includesAtLeastOneWord = words.some((word) =>
+        generatedText.includes(word)
+      )
+      expect(includesAtLeastOneWord).toBe(true)
+    })
+  })
 })

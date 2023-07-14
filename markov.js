@@ -42,10 +42,12 @@ class MarkovMachine {
     let keys = Array.from(this.chains.keys())
     let key = MarkovMachine.getWord(keys)
     let output = []
+    let wordCount = 0
     // push random words into output array
-    while (output.length < numWords && key !== null) {
+    while (wordCount < numWords && key !== null) {
       output.push(key)
       key = MarkovMachine.getWord(this.chains.get(key))
+      wordCount++
     }
     return output.join(' ')
   }
