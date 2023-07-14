@@ -30,11 +30,28 @@ class MarkovMachine {
   }
 
   /** return random text from chains */
+  static getWord(arr) {
+    if (arr.length === 0) {
+      return null
+    }
+    return arr[Math.floor(Math.random() * arr.length)]
+  }
 
   makeText(numWords = 100) {
-    // TODO
+    // get a random word key
+    let keys = Array.from(this.chains.keys())
+    let key = MarkovMachine.getWord(keys)
+    let output = []
+
+    while (output.length < numWords && key !== null) {
+      output.push(key)
+      key = MarkovMachine.getWord(this.chains.get(key))
+    }
+    return output.join(' ')
   }
 }
 
 const markovMachine = new MarkovMachine('the cat in the hat')
-console.log(markovMachine.chains)
+const newChains = markovMachine.chains
+console.log(newChains)
+console.log(markovMachine.makeText())
